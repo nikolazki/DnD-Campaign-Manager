@@ -1,0 +1,16 @@
+html, body, .main {
+    height: 100%;
+}
+
+.is-fullheight {
+    height: 100%;
+}
+
+.is-fullheight-with-navbar {
+    height: calc(100% - 70px);
+}
+
+.is-vertical-center {
+    display: flex;
+    align-items: center;
+}
