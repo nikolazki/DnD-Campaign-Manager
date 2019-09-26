@@ -6,6 +6,7 @@ namespace CampaignManager.Domain
     public class Character
     {
         //-- Constructor
+        public Character() { }
         public Character(int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma,
             Race race, Class cl)
         {
