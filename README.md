@@ -13,3 +13,6 @@ This is an in-development project to create a web application to manage Dungeons
 ### Tasks
 - [ ] Create intial model classes
 - [ ] Create initial UI design concept
+
+### Resources
+http://www.dnd5eapi.co/docs/
