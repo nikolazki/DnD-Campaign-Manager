@@ -7,7 +7,7 @@ html, body, .main {
 }
 
 .is-fullheight-with-navbar {
-    height: calc(100% - 70px);
+    height: 100%;
 }
 
 .is-vertical-center {
