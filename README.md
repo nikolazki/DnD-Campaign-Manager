@@ -11,5 +11,5 @@ This is an in-development project to create a web application to manage Dungeons
   - Using EF Core to work with the db
 
 ### Tasks
-- [] Create intial model classes
-- [] Create initial UI design concept
+- [ ] Create intial model classes
+- [ ] Create initial UI design concept
