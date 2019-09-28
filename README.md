@@ -5,7 +5,7 @@ This is an in-development project to create a web application to manage Dungeons
 
 ### Technology
 - .NET Core 3.0
-- Blazor
+- Server-side Blazor
 - Some Db Provider
   - Using SQL for development purposes
   - Using EF Core to work with the db
