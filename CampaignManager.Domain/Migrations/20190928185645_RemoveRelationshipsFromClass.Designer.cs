@@ -4,14 +4,16 @@ using CampaignManager.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CampaignManager.Domain.Migrations
 {
     [DbContext(typeof(AuthContext))]
-    partial class AuthContextModelSnapshot : ModelSnapshot
+    [Migration("20190928185645_RemoveRelationshipsFromClass")]
+    partial class RemoveRelationshipsFromClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace CampaignManager.Domain.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CampaignManager.Domain.Ability", b =>
+            modelBuilder.Entity("CampaignManager.Domain.AbilityScore", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -37,7 +39,7 @@ namespace CampaignManager.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Abilities");
+                    b.ToTable("AbilityScores");
                 });
 
             modelBuilder.Entity("CampaignManager.Domain.ApplicationUser", b =>
@@ -252,7 +254,7 @@ namespace CampaignManager.Domain.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AbilityId")
+                    b.Property<int>("AbilityScoreId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -263,7 +265,7 @@ namespace CampaignManager.Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AbilityId");
+                    b.HasIndex("AbilityScoreId");
 
                     b.ToTable("Skills");
                 });
@@ -451,9 +453,9 @@ namespace CampaignManager.Domain.Migrations
 
             modelBuilder.Entity("CampaignManager.Domain.Skill", b =>
                 {
-                    b.HasOne("CampaignManager.Domain.Ability", "AbilityS")
+                    b.HasOne("CampaignManager.Domain.AbilityScore", "AbilityScore")
                         .WithMany("Skills")
-                        .HasForeignKey("AbilityId")
+                        .HasForeignKey("AbilityScoreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
