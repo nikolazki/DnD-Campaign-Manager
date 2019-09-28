@@ -44,6 +44,7 @@ namespace CampaignManager.UI
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<ApplicationUser>>();
 
             services.AddTransient<IFetchUsersModel, FetchUsersModel>();
+            services.AddTransient<IFetchClassesModel, FetchClassesModel>();
             services.AddTransient<IDashboardViewModel, DashboardViewModel>();
         }
 

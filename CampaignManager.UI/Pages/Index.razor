@@ -11,6 +11,34 @@
         <div class="column">
             <div class="has-text-centered">
                 <p class="title is-1">Welcome to the D&D Campaign Manager!</p>
+
+                <div>
+                    <p>Testing out the D&D API...</p>
+                    @if(ViewModel.Classes == null)
+                    {
+                        <p><em>Loading...</em></p>
+                    }
+                    else
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Url</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var cl in ViewModel.Classes)
+                                {
+                                    <tr>
+                                        <td>@cl.name</td>
+                                        <td>@cl.url</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
             </div>
         </div>
         <div class="column is-narrow">
@@ -46,5 +74,6 @@
     protected override async Task OnInitializedAsync()
     {
         await ViewModel.RetrieveUsersAsync();
+        await ViewModel.RetrieveClassesAsync();
     }
 }
