@@ -11,30 +11,19 @@ namespace CampaignManager.UI.ViewModels
     {
         IFetchUsersModel FetchUsersModel { get; }
         IUser[] Users { get; }
-        IFetchClassesModel FetchClassesModel { get; }
-        IClass[] Classes { get; }
 
-        Task RetrieveClassesAsync();
         Task RetrieveUsersAsync();
     }
 
     public class DashboardViewModel : IDashboardViewModel
     {
         private IFetchUsersModel _fetchUsersModel { get; set; }
-        private IFetchClassesModel _fetchClassesModel { get; set; }
         private IUser[] _users { get; set; }
-        private IClass[] _classes { get; set; }
 
         public IFetchUsersModel FetchUsersModel
         {
             get => _fetchUsersModel;
             private set => _fetchUsersModel = value;
-        }
-
-        public IFetchClassesModel FetchClassesModel
-        {
-            get => _fetchClassesModel;
-            private set => _fetchClassesModel = value;
         }
 
         public IUser[] Users
@@ -43,16 +32,9 @@ namespace CampaignManager.UI.ViewModels
             private set => _users = value;
         }
 
-        public IClass[] Classes
-        {
-            get => _classes;
-            private set => _classes = value;
-        }
-
-        public DashboardViewModel(IFetchUsersModel fetchUsersModel, IFetchClassesModel fetchClassesModel)
+        public DashboardViewModel(IFetchUsersModel fetchUsersModel)
         {
             _fetchUsersModel = fetchUsersModel;
-            _fetchClassesModel = fetchClassesModel;
         }
 
         public async Task RetrieveUsersAsync()
@@ -69,23 +51,6 @@ namespace CampaignManager.UI.ViewModels
             }
 
             _users = newUsers.ToArray();
-        }
-
-        public async Task RetrieveClassesAsync()
-        {
-            List<IClass> newClasses = new List<IClass>();
-            await _fetchClassesModel.RetrieveClassesAsync();
-
-            foreach (var cl in _fetchClassesModel.Classes)
-            {
-                newClasses.Add(new Models.Class
-                {
-                    name = cl.name,
-                    url = cl.url
-                });
-            }
-
-            _classes = newClasses.ToArray();
         }
     }
 }
