@@ -4,14 +4,16 @@ using CampaignManager.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CampaignManager.Domain.Migrations
 {
     [DbContext(typeof(AuthContext))]
-    partial class AuthContextModelSnapshot : ModelSnapshot
+    [Migration("20190929114510_AddApiDataToAbilityTable")]
+    partial class AddApiDataToAbilityTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,8 +28,8 @@ namespace CampaignManager.Domain.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ApiId")
-                        .HasColumnType("int");
+                    b.Property<string>("ApiId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ApiUrl")
                         .HasColumnType("nvarchar(max)");
@@ -261,12 +263,6 @@ namespace CampaignManager.Domain.Migrations
                     b.Property<int>("AbilityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ApiId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ApiUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -463,7 +459,7 @@ namespace CampaignManager.Domain.Migrations
 
             modelBuilder.Entity("CampaignManager.Domain.Skill", b =>
                 {
-                    b.HasOne("CampaignManager.Domain.Ability", "Ability")
+                    b.HasOne("CampaignManager.Domain.Ability", "AbilityS")
                         .WithMany("Skills")
                         .HasForeignKey("AbilityId")
                         .OnDelete(DeleteBehavior.Cascade)
