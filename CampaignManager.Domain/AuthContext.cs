@@ -8,11 +8,14 @@ namespace CampaignManager.Domain
         public DbSet<Ability> Abilities { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<Class> Classes { get; set; }
-        public DbSet<Equipment> Equipment { get; set; }
+        public DbSet<DamageType> DamageTypes { get; set; }
         public DbSet<Proficiency> Proficencies { get; set; }
         public DbSet<Race> Races { get; set; }
         public DbSet<Skill> Skills { get; set; }
-        public DbSet<StartingEquipment> StartingEquipment { get; set; }
+        public DbSet<WeaponProperty> WeaponProperties { get; set; }
+        public DbSet<WeaponPropertyType> WeaponPropertyTypes { get; set; }
+        public DbSet<Weapon> Weapons { get; set; }
+
 
         public AuthContext(DbContextOptions<AuthContext> options)
             : base(options)
@@ -22,6 +25,9 @@ namespace CampaignManager.Domain
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<WeaponProperty>()
+                .HasKey(w => new { w.WeaponId, w.WeaponPropertyTypeId});
         }
     }
 }
