@@ -14,6 +14,7 @@ namespace CampaignManager.Domain
         public DbSet<Proficiency> Proficencies { get; set; }
         public DbSet<Race> Races { get; set; }
         public DbSet<Skill> Skills { get; set; }
+        public DbSet<Tool> Tools { get; set; }
         public DbSet<WeaponProperty> WeaponProperties { get; set; }
         public DbSet<WeaponPropertyType> WeaponPropertyTypes { get; set; }
         public DbSet<Weapon> Weapons { get; set; }
