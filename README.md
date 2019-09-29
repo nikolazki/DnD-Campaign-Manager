@@ -31,7 +31,7 @@ Create a campaign wizard.
 Shows character summaries and a lot of text describing what has happened so far in the campaign. The idea is that the DM would write a summary after every game explaining what happened. Other characters can also contribute notes which will be viewable somehow. Not sure exactly how to organize this yet.
 
 ### Resources
-http://www.dnd5eapi.co/docs/
+https://github.com/adrpadua/5e-database
 
 
 
