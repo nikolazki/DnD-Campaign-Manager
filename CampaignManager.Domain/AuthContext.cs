@@ -6,6 +6,7 @@ namespace CampaignManager.Domain
     public class AuthContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Ability> Abilities { get; set; }
+        public DbSet<AdventuringGear> AdventuringGear { get; set; }
         public DbSet<Armor> Armor { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<Class> Classes { get; set; }

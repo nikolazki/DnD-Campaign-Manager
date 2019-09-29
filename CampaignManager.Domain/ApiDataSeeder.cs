@@ -199,6 +199,32 @@ namespace CampaignManager.Domain
                 await context.SaveChangesAsync();
 
             }
+
+            // Seed AdventuringGear Table
+            if (!context.AdventuringGear.Any())
+            {
+                List<AdventuringGear> Gear = new List<AdventuringGear>();
+                using (StreamReader r = new StreamReader(contentRootPath + @"\5e-SRD-Equipment.json"))
+                {
+                    string json = r.ReadToEnd();
+                    List<equipment> adventuringGear = JsonConvert.DeserializeObject<List<equipment>>(json).Where(e => e.equipment_category == "Adventuring Gear").ToList();
+
+                    foreach (var gear in adventuringGear)
+                    {
+                        Gear.Add(new AdventuringGear
+                        {
+                            ApiId = gear.index,
+                            ApiUrl = gear.url,
+                            Cost = CalculateCost(gear.cost.quantity, gear.cost.unit),
+                            GearCategory = gear.gear_category,
+                            Name = gear.name,
+                            Weight = gear.weight
+                        });
+                    }
+                }
+                context.AdventuringGear.AddRange(Gear);
+                await context.SaveChangesAsync();
+            }
         }
 
         private static int CalculateCost(int quantity, string unit)
