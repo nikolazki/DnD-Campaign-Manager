@@ -290,12 +290,38 @@ namespace CampaignManager.Domain
 
                         MountsAndVehicles.Add(newMorV);
                     }
-
-                    context.MountsAndVehicles.AddRange(MountsAndVehicles);
-                    await context.SaveChangesAsync();
-                    
                 }
+                context.MountsAndVehicles.AddRange(MountsAndVehicles);
+                await context.SaveChangesAsync();
             }
+
+            // Seed Proficiencies
+            if (!context.Proficencies.Any())
+            {
+                List<Proficiency> Proficiencies = new List<Proficiency>();
+
+                using (StreamReader r = new StreamReader(contentRootPath + @"\5e-SRD-Proficiencies.json"))
+                {
+                    string json = r.ReadToEnd();
+                    List <proficiencies> proficiencies = JsonConvert.DeserializeObject<List<proficiencies>>(json);
+
+                    foreach (var proficiency in proficiencies)
+                    {
+                        Proficiencies.Add(new Proficiency
+                        {
+                            ApiId = proficiency.index,
+                            ApiUrl = proficiency.url,
+                            Name = proficiency.name,
+                            Type = proficiency.type
+                        });
+                    }
+                }
+                context.Proficencies.AddRange(Proficiencies);
+                await context.SaveChangesAsync();
+            }
+
+            //
+
         }
 
         private static int CalculateCost(int quantity, string unit)

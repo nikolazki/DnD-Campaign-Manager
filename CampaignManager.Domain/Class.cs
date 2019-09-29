@@ -7,17 +7,14 @@ namespace CampaignManager.Domain
     public class Class
     {
         //-- Public Properties
+        /* Data we care about */
         public int Id { get; set; }
         public string Name { get; set; }
-        public int HitDice { get; set; }
-        public int NumProficiencyChoices { get; set; }
+        public int HitDie { get; set; }
 
-        //-- Relationships
-        public ICollection<Character> Characters { get; set; }
-        
-        /*public ICollection<Proficiency> ProficiencyChoices { get; set; }
-        public ICollection<Proficiency> Proficiencies { get; set; }
-        public ICollection<AbilityScore> SavingThrows { get; set; }
-        public ICollection<StartingEquipment> StartingEquipment { get; set; }*/
+        /* Api Reference */
+        public int ApiId { get; set; }
+        public string ApiUrl { get; set; }
+       
     }
 }
