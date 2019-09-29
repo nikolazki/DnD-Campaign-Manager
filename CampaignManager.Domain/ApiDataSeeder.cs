@@ -252,6 +252,45 @@ namespace CampaignManager.Domain
                 context.Tools.AddRange(Tools);
                 await context.SaveChangesAsync();
             }
+
+            // Seed MountsAndVehicles Table
+            if (!context.MountsAndVehicles.Any())
+            {
+                List<MountsAndVehicles> MountsAndVehicles = new List<MountsAndVehicles>();
+                using (StreamReader r = new StreamReader(contentRootPath + @"\5e-SRD-Equipment.json"))
+                {
+                    string json = r.ReadToEnd();
+                    List<equipment> mountsAndVehicles = JsonConvert.DeserializeObject<List<equipment>>(json).Where(e => e.equipment_category == "Mounts and Vehicles").ToList();
+
+                    foreach (var mountOrVehicle in mountsAndVehicles)
+                    {
+                        MountsAndVehicles newMorV = new MountsAndVehicles();
+
+                        newMorV.ApiId = mountOrVehicle.index;
+                        newMorV.ApiUrl = mountOrVehicle.url;
+                        newMorV.Cost = CalculateCost(mountOrVehicle.cost.quantity, mountOrVehicle.cost.unit);
+
+                        if (mountOrVehicle.desc != null)
+                            newMorV.Description = String.Join("\\n", mountOrVehicle.desc);
+
+                        newMorV.Name = mountOrVehicle.name;
+                        
+                        if (mountOrVehicle.speed != null)
+                        {
+                            newMorV.SpeedQuantity = mountOrVehicle.speed.quantity;
+                            newMorV.SpeedUnit = mountOrVehicle.speed.unit;
+                        }
+
+                        newMorV.VehicleCategory = mountOrVehicle.vehicle_category;
+
+                        MountsAndVehicles.Add(newMorV);
+                    }
+
+                    context.MountsAndVehicles.AddRange(MountsAndVehicles);
+                    await context.SaveChangesAsync();
+                    
+                }
+            }
         }
 
         private static int CalculateCost(int quantity, string unit)

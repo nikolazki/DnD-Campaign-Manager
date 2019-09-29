@@ -11,6 +11,7 @@ namespace CampaignManager.Domain
         public DbSet<Character> Characters { get; set; }
         public DbSet<Class> Classes { get; set; }
         public DbSet<DamageType> DamageTypes { get; set; }
+        public DbSet<MountsAndVehicles> MountsAndVehicles { get; set; }
         public DbSet<Proficiency> Proficencies { get; set; }
         public DbSet<Race> Races { get; set; }
         public DbSet<Skill> Skills { get; set; }
