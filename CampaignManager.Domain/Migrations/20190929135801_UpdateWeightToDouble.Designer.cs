@@ -4,14 +4,16 @@ using CampaignManager.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CampaignManager.Domain.Migrations
 {
     [DbContext(typeof(AuthContext))]
-    partial class AuthContextModelSnapshot : ModelSnapshot
+    [Migration("20190929135801_UpdateWeightToDouble")]
+    partial class UpdateWeightToDouble
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -566,7 +568,7 @@ namespace CampaignManager.Domain.Migrations
             modelBuilder.Entity("CampaignManager.Domain.WeaponProperty", b =>
                 {
                     b.HasOne("CampaignManager.Domain.Weapon", "Weapon")
-                        .WithMany("WeaponProperties")
+                        .WithMany("WeaonProperties")
                         .HasForeignKey("WeaponId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

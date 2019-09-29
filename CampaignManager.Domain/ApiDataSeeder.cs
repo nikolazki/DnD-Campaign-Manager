@@ -62,14 +62,128 @@ namespace CampaignManager.Domain
                             ApiUrl = skill.url,
                             Ability = context.Abilities.SingleOrDefault(a => a.ApiId == skill.index),
                             Name = skill.name,
-                            Description = String.Join("\n", skill.desc)
+                            Description = String.Join("\\n", skill.desc)
                         });
                     }
                 }
                 context.Skills.AddRange(Skills);
                 await context.SaveChangesAsync();
             }
-            
+
+            // Seed DamageType Table
+            if (!context.DamageTypes.Any())
+            {
+                List<DamageType> DamageTypes = new List<DamageType>();
+                using (StreamReader r = new StreamReader(contentRootPath + @"\5e-SRD-Damage-Types.json"))
+                {
+                    string json = r.ReadToEnd();
+                    List<damage_types> damageTypes = JsonConvert.DeserializeObject<List<damage_types>>(json);
+
+                    foreach (var damageType in damageTypes)
+                    {
+                        DamageTypes.Add(new DamageType
+                        {
+                            ApiId = damageType.index,
+                            ApiUrl = damageType.url,
+                            Description = String.Join("\\n", damageType.desc),
+                            Name = damageType.name
+                        });
+                    }
+                }
+                context.DamageTypes.AddRange(DamageTypes);
+                await context.SaveChangesAsync();
+            }
+
+            // Seed WeaponPropertyType Table
+            if (!context.WeaponPropertyTypes.Any())
+            {
+                List<WeaponPropertyType> WeaponPropertyTypes = new List<WeaponPropertyType>();
+                using (StreamReader r = new StreamReader(contentRootPath + @"\5e-SRD-Weapon-Properties.json"))
+                {
+                    string json = r.ReadToEnd();
+                    List<weapon_properties> weaponProperties = JsonConvert.DeserializeObject<List<weapon_properties>>(json);
+
+                    foreach (var weaponProperty in weaponProperties)
+                    {
+                        WeaponPropertyTypes.Add(new WeaponPropertyType
+                        {
+                            ApiId = weaponProperty.index,
+                            ApiUrl = weaponProperty.url,
+                            Description = String.Join("\\n", weaponProperty.desc),
+                            Name = weaponProperty.name
+                        });
+                    }
+                }
+                context.WeaponPropertyTypes.AddRange(WeaponPropertyTypes);
+                await context.SaveChangesAsync();
+            }
+
+            // Seed Weapons and WeaponProperties Tables
+            if(!context.Weapons.Any())
+            {
+                List<Weapon> Weapons = new List<Weapon>();
+                using (StreamReader r = new StreamReader(contentRootPath + @"\5e-SRD-Equipment.json"))
+                {
+                    string json = r.ReadToEnd();
+                    List<equipment> weapons = JsonConvert.DeserializeObject<List<equipment>>(json).Where(e => e.equipment_category == "Weapon").ToList();
+
+                    foreach (var weapon in weapons)
+                    {
+                        List<WeaponProperty> weaponProperties = new List<WeaponProperty>();
+                        foreach (var weaponProperty in weapon.properties)
+                        {
+                            weaponProperties.Add(new WeaponProperty
+                            {
+                                WeaponPropertyType = context.WeaponPropertyTypes.SingleOrDefault(w => w.ApiUrl == weaponProperty.url)
+                            });
+                        }
+
+                        Weapon newWeapon = new Weapon();
+                        newWeapon.ApiId = weapon.index;
+                        newWeapon.ApiUrl = weapon.url;
+                        newWeapon.CategoryRange = weapon.category_range;
+                        newWeapon.Cost = CalculateCost(weapon.cost.quantity, weapon.cost.unit);
+                        newWeapon.DamageType = context.DamageTypes.SingleOrDefault(d => d.ApiUrl == weapon.damage.damage_type.url);
+                        newWeapon.DiceCount = weapon.damage.dice_count;
+                        newWeapon.DiceValue = weapon.damage.dice_value;
+                        newWeapon.LongRange = weapon.range.@long;
+                        newWeapon.Name = weapon.name;
+                        newWeapon.NormalRange = weapon.range.normal;
+                        newWeapon.WeaponProperties = weaponProperties;
+                        newWeapon.WeaponCategory = weapon.weapon_category;
+                        newWeapon.WeaponRange = weapon.weapon_range;
+                        newWeapon.Weight = weapon.weight;
+
+                        if (weapon.throw_range != null)
+                        {
+                            newWeapon.LongThrowRange = weapon.throw_range.@long;
+                            newWeapon.NormalThrowRange = weapon.throw_range.normal;
+                        }
+
+                        Weapons.Add(newWeapon);
+                    }
+                }
+                context.Weapons.AddRange(Weapons);
+                await context.SaveChangesAsync();
+
+            }
+        }
+
+        private static int CalculateCost(int quantity, string unit)
+        {
+            switch(unit)
+            {
+                case "cp":
+                    return quantity;
+                case "sp":
+                    return quantity * 10;
+                case "gp":
+                    return quantity * 100;
+                case "pp":
+                    return quantity * 1000;
+                default:
+                    return 0;
+            }
         }
     }
 }

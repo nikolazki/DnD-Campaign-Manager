@@ -14,7 +14,7 @@ namespace CampaignManager.Domain
         public string WeaponRange { get; set; }
         public string CategoryRange { get; set; }
         public int Cost { get; set; } // in CP
-        public int Weight { get; set; }
+        public double Weight { get; set; }
         public int DiceCount { get; set; }
         public int DiceValue { get; set; }
         public int? NormalRange { get; set; }
@@ -29,7 +29,7 @@ namespace CampaignManager.Domain
         //-- Relationships
         public int DamageTypeId { get; set; }
         public DamageType DamageType { get; set; }
-        public ICollection<WeaponProperty> WeaonProperties { get; set; }
+        public ICollection<WeaponProperty> WeaponProperties { get; set; }
 
     }
 }
