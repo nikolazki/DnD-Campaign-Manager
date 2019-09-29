@@ -167,6 +167,38 @@ namespace CampaignManager.Domain
                 await context.SaveChangesAsync();
 
             }
+
+            // Seed Armor Table
+            if (!context.Armor.Any())
+            {
+                List<Armor> Armor = new List<Armor>();
+                using (StreamReader r = new StreamReader(contentRootPath + @"\5e-SRD-Equipment.json"))
+                {
+                    string json = r.ReadToEnd();
+                    List<equipment> armors = JsonConvert.DeserializeObject<List<equipment>>(json).Where(e => e.equipment_category == "Armor").ToList();
+
+                    foreach (var armor in armors)
+                    {
+                        Armor.Add(new Domain.Armor
+                        {
+                            ApiId = armor.index,
+                            ApiUrl = armor.url,
+                            ArmorCategory = armor.armor_category,
+                            BaseArmorClass = armor.armor_class.@base,
+                            Cost = CalculateCost(armor.cost.quantity, armor.cost.unit),
+                            DexterityBonus = armor.armor_class.dex_bonus,
+                            MaxBonus = armor.armor_class.max_bonus,
+                            MinStrength = armor.str_minimum,
+                            Name = armor.name,
+                            StealthDisadvantage = armor.stealth_disadvantage,
+                            Weight = armor.weight
+                        });
+                    }
+                }
+                context.Armor.AddRange(Armor);
+                await context.SaveChangesAsync();
+
+            }
         }
 
         private static int CalculateCost(int quantity, string unit)

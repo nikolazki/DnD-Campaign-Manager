@@ -4,14 +4,16 @@ using CampaignManager.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CampaignManager.Domain.Migrations
 {
     [DbContext(typeof(AuthContext))]
-    partial class AuthContextModelSnapshot : ModelSnapshot
+    [Migration("20190929142444_AddArmorTable")]
+    partial class AddArmorTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,16 +138,16 @@ namespace CampaignManager.Domain.Migrations
                     b.Property<bool>("DexterityBonus")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("MaxBonus")
+                    b.Property<int>("MaxBonus")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MinStrength")
+                    b.Property<int>("MinStrength")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("StealthDisadvantage")
+                    b.Property<bool>("StealthDisadvantage")
                         .HasColumnType("bit");
 
                     b.Property<double>("Weight")
