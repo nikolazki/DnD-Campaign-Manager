@@ -6,9 +6,8 @@ This is an in-development project to create a web application to manage Dungeons
 ### Technology
 - .NET Core 3.0
 - Server-side Blazor
-- Some Db Provider
-  - Using SQL for development purposes
-  - Using EF Core to work with the db
+- Using SQL db for development
+  - Using EF Core to work with the db can change db easily if needed
 
 ### UI Design
 This section describes the current planned page map. Probably will change 568 times.
