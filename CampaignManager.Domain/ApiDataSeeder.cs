@@ -211,6 +211,10 @@ namespace CampaignManager.Domain
 
                     foreach (var gear in adventuringGear)
                     {
+                        string desc = null;
+                        if (gear.desc != null)
+                            desc = String.Join("\\n", gear.desc);
+
                         Gear.Add(new AdventuringGear
                         {
                             ApiId = gear.index,
@@ -218,7 +222,8 @@ namespace CampaignManager.Domain
                             Cost = CalculateCost(gear.cost.quantity, gear.cost.unit),
                             GearCategory = gear.gear_category,
                             Name = gear.name,
-                            Weight = gear.weight
+                            Weight = gear.weight,
+                            Description = desc
                         });
                     }
                 }

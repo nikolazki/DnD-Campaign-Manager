@@ -13,6 +13,7 @@ namespace CampaignManager.Domain
         public string GearCategory { get; set; }
         public int Cost { get; set; } // in cp
         public double Weight { get; set; }
+        public string Description { get; set; }
 
         /* Api Reference */
         public int ApiId { get; set; }
