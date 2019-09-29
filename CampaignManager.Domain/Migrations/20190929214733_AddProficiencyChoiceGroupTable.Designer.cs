@@ -4,14 +4,16 @@ using CampaignManager.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CampaignManager.Domain.Migrations
 {
     [DbContext(typeof(AuthContext))]
-    partial class AuthContextModelSnapshot : ModelSnapshot
+    [Migration("20190929214733_AddProficiencyChoiceGroupTable")]
+    partial class AddProficiencyChoiceGroupTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,6 +46,39 @@ namespace CampaignManager.Domain.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Abilities");
+                });
+
+            modelBuilder.Entity("CampaignManager.Domain.AdventuringGear", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ApiId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApiUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Cost")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GearCategory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Weight")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AdventuringGear");
                 });
 
             modelBuilder.Entity("CampaignManager.Domain.ApplicationUser", b =>
@@ -109,6 +144,51 @@ namespace CampaignManager.Domain.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("CampaignManager.Domain.Armor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ApiId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApiUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ArmorCategory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("BaseArmorClass")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Cost")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("DexterityBonus")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("MaxBonus")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MinStrength")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("StealthDisadvantage")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("Weight")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Armor");
                 });
 
             modelBuilder.Entity("CampaignManager.Domain.Character", b =>
@@ -210,7 +290,7 @@ namespace CampaignManager.Domain.Migrations
                     b.ToTable("DamageTypes");
                 });
 
-            modelBuilder.Entity("CampaignManager.Domain.Equipment", b =>
+            modelBuilder.Entity("CampaignManager.Domain.MountsAndVehicles", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -226,21 +306,24 @@ namespace CampaignManager.Domain.Migrations
                     b.Property<int>("Cost")
                         .HasColumnType("int");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Weight")
+                    b.Property<double?>("SpeedQuantity")
                         .HasColumnType("float");
+
+                    b.Property<string>("SpeedUnit")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VehicleCategory")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Equipment");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Equipment");
+                    b.ToTable("MountsAndVehicles");
                 });
 
             modelBuilder.Entity("CampaignManager.Domain.Proficiency", b =>
@@ -381,19 +464,96 @@ namespace CampaignManager.Domain.Migrations
                     b.ToTable("Skills");
                 });
 
-            modelBuilder.Entity("CampaignManager.Domain.StartingEquipment", b =>
+            modelBuilder.Entity("CampaignManager.Domain.Tool", b =>
                 {
-                    b.Property<int>("ClassId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ApiId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EquipmentId")
+                    b.Property<string>("ApiUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Cost")
                         .HasColumnType("int");
 
-                    b.HasKey("ClassId", "EquipmentId");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("EquipmentId");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("StartingEquipment");
+                    b.Property<string>("ToolCategory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Weight")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tools");
+                });
+
+            modelBuilder.Entity("CampaignManager.Domain.Weapon", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ApiId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApiUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CategoryRange")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Cost")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DamageTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DiceCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DiceValue")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LongRange")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LongThrowRange")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("NormalRange")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NormalThrowRange")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WeaponCategory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WeaponRange")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Weight")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DamageTypeId");
+
+                    b.ToTable("Weapons");
                 });
 
             modelBuilder.Entity("CampaignManager.Domain.WeaponProperty", b =>
@@ -570,117 +730,6 @@ namespace CampaignManager.Domain.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CampaignManager.Domain.AdventuringGear", b =>
-                {
-                    b.HasBaseType("CampaignManager.Domain.Equipment");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GearCategory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("AdventuringGear");
-                });
-
-            modelBuilder.Entity("CampaignManager.Domain.Armor", b =>
-                {
-                    b.HasBaseType("CampaignManager.Domain.Equipment");
-
-                    b.Property<string>("ArmorCategory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("BaseArmorClass")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("DexterityBonus")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("MaxBonus")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MinStrength")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("StealthDisadvantage")
-                        .HasColumnType("bit");
-
-                    b.HasDiscriminator().HasValue("Armor");
-                });
-
-            modelBuilder.Entity("CampaignManager.Domain.MountsAndVehicles", b =>
-                {
-                    b.HasBaseType("CampaignManager.Domain.Equipment");
-
-                    b.Property<string>("Description")
-                        .HasColumnName("MountsAndVehicles_Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("SpeedQuantity")
-                        .HasColumnType("float");
-
-                    b.Property<string>("SpeedUnit")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VehicleCategory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("MountsAndVehicles");
-                });
-
-            modelBuilder.Entity("CampaignManager.Domain.Tool", b =>
-                {
-                    b.HasBaseType("CampaignManager.Domain.Equipment");
-
-                    b.Property<string>("Description")
-                        .HasColumnName("Tool_Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ToolCategory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("Tool");
-                });
-
-            modelBuilder.Entity("CampaignManager.Domain.Weapon", b =>
-                {
-                    b.HasBaseType("CampaignManager.Domain.Equipment");
-
-                    b.Property<string>("CategoryRange")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DamageTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DiceCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DiceValue")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LongRange")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LongThrowRange")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NormalRange")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NormalThrowRange")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WeaponCategory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WeaponRange")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasIndex("DamageTypeId");
-
-                    b.HasDiscriminator().HasValue("Weapon");
-                });
-
             modelBuilder.Entity("CampaignManager.Domain.Character", b =>
                 {
                     b.HasOne("CampaignManager.Domain.Class", "Class")
@@ -770,17 +819,11 @@ namespace CampaignManager.Domain.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CampaignManager.Domain.StartingEquipment", b =>
+            modelBuilder.Entity("CampaignManager.Domain.Weapon", b =>
                 {
-                    b.HasOne("CampaignManager.Domain.Class", "Class")
+                    b.HasOne("CampaignManager.Domain.DamageType", "DamageType")
                         .WithMany()
-                        .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CampaignManager.Domain.Equipment", "Equipment")
-                        .WithMany()
-                        .HasForeignKey("EquipmentId")
+                        .HasForeignKey("DamageTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -847,15 +890,6 @@ namespace CampaignManager.Domain.Migrations
                     b.HasOne("CampaignManager.Domain.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CampaignManager.Domain.Weapon", b =>
-                {
-                    b.HasOne("CampaignManager.Domain.DamageType", "DamageType")
-                        .WithMany()
-                        .HasForeignKey("DamageTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

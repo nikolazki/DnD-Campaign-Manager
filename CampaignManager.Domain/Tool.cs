@@ -4,19 +4,16 @@ using System.Text;
 
 namespace CampaignManager.Domain
 {
-    public class Tool : IEquipment
+    public class Tool : Equipment
     {
         //-- Public Properties
         /* Data we care about */
-        public int Id { get; set; }
-        public string Name { get; set; }
         public string ToolCategory { get; set; }
-        public int Cost { get; set; } // in cp
-        public double Weight { get; set; }
         public string Description { get; set; }
 
-        /* Api Reference */
-        public int ApiId { get; set; }
-        public string ApiUrl { get; set; }
+        public Tool()
+        {
+            _equipmentType = "Tools";
+        }
     }
 }

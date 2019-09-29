@@ -15,6 +15,10 @@ namespace CampaignManager.Domain
         /* Api Reference */
         public int ApiId { get; set; }
         public string ApiUrl { get; set; }
-       
+
+        //-- Relationships
+        public ICollection<ProficiencyChoiceGroup> ProficiencyChoiceGroups { get; set; }
+        public ICollection<ProficiencyGiven> GivenProficiencies { get; set; }
+        public ICollection<ProficiencySavingThrow> SavingThrowProficiencies { get; set; }
     }
 }

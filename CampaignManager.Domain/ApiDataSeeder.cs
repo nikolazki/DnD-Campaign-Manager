@@ -288,6 +288,9 @@ namespace CampaignManager.Domain
 
                         newMorV.VehicleCategory = mountOrVehicle.vehicle_category;
 
+                        if (mountOrVehicle.weight != null)
+                            newMorV.Weight = mountOrVehicle.weight;
+
                         MountsAndVehicles.Add(newMorV);
                     }
                 }
@@ -320,7 +323,8 @@ namespace CampaignManager.Domain
                 await context.SaveChangesAsync();
             }
 
-            //
+            // Seed Classes, ProficiencyChoices, ProficienciesGiven, SavingThrows, Starting Equipment
+
 
         }
 
