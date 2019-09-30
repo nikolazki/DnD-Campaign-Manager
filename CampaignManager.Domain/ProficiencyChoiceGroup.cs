@@ -11,7 +11,7 @@ namespace CampaignManager.Domain
 
         public int ClassId { get; set; }
         public Class Class { get; set; }
-        ICollection<ProficiencyChoice> ProficiencyChoices { get; set; }
+        ICollection<Proficiency> Proficiencies { get; set; }
     }
 }
  

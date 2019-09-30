@@ -40,7 +40,7 @@ namespace CampaignManager.Domain
                 .HasKey(w => new { w.WeaponId, w.WeaponPropertyTypeId});
 
             builder.Entity<ProficiencyChoice>()
-                .HasKey(p => new { p.ClassId, p.ProficiencyId });
+                .HasKey(p => new { p.ProficiencyChoiceGroupId, p.ProficiencyId });
 
             builder.Entity<ProficiencyGiven>()
                 .HasKey(p => new { p.ClassId, p.ProficiencyId });
