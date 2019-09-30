@@ -7,7 +7,6 @@ namespace CampaignManager.Domain
     public class Armor : Equipment
     {
         //-- Public Properties
-        /* Data we care about */
         public string ArmorCategory { get; set; }
         public int BaseArmorClass { get; set; }
         public bool DexterityBonus { get; set; }
@@ -18,7 +17,7 @@ namespace CampaignManager.Domain
         //-- Constructor
         public Armor()
         {
-            _equipmentType = "Armor";
+            EquipmentCategory = "Armor";
         }
     }
 }

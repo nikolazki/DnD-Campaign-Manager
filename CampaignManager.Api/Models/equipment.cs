@@ -84,7 +84,7 @@ namespace CampaignManager.Api.Models
         public cost cost { get; set; }
         public damage damage { get; set; }
         public range range { get; set; }
-        public double weight { get; set; }
+        public double? weight { get; set; }
         public List<properties> properties { get; set; }
         public string url { get; set; }
         public throwRange throw_range { get; set; }

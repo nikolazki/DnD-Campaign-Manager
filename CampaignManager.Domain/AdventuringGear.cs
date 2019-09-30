@@ -14,7 +14,7 @@ namespace CampaignManager.Domain
         //-- Constructor
         public AdventuringGear()
         {
-            _equipmentType = "Adventuring Gear";
+            EquipmentCategory = "Adventuring Gear";
         }
     }
 }

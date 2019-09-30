@@ -7,7 +7,6 @@ namespace CampaignManager.Domain
     public class MountsAndVehicles : Equipment
     {
         //-- Public Properties
-        /* Data we care about */
         public string VehicleCategory { get; set; }
         public double? SpeedQuantity { get; set; }
         public string SpeedUnit { get; set; }
@@ -15,7 +14,7 @@ namespace CampaignManager.Domain
 
         public MountsAndVehicles()
         {
-            _equipmentType = "Mounts and Vehicles";
+            EquipmentCategory = "Mounts and Vehicles";
         }
     }
 }

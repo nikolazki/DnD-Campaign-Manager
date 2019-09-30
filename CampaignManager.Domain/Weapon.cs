@@ -7,7 +7,6 @@ namespace CampaignManager.Domain
     public class Weapon : Equipment
     {
         //-- Public Properties
-        /* Data we care about */
         public string WeaponCategory { get; set; }
         public string WeaponRange { get; set; }
         public string CategoryRange { get; set; }
@@ -26,7 +25,7 @@ namespace CampaignManager.Domain
         //-- Constructor
         public Weapon()
         {
-            _equipmentType = "Weapons";
+            EquipmentCategory = "Weapons";
         }
 
     }
