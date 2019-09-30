@@ -60,7 +60,7 @@ namespace CampaignManager.Domain
                         {
                             ApiId = skill.index,
                             ApiUrl = skill.url,
-                            Ability = context.Abilities.SingleOrDefault(a => a.ApiId == skill.index),
+                            Ability = context.Abilities.SingleOrDefault(a => a.ApiUrl == skill.ability_score.url),
                             Name = skill.name,
                             Description = String.Join("\\n", skill.desc)
                         });
