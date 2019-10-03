@@ -324,7 +324,71 @@ namespace CampaignManager.Domain
             }
 
             // Seed Classes, ProficiencyChoices, ProficienciesGiven, SavingThrows, Starting Equipment
+            if (!context.Classes.Any())
+            {
+                List<Class> Classes = new List<Class>();
 
+                using (StreamReader r = new StreamReader(contentRootPath + @"\5e-SRD-Classes.json"))
+                {
+                    string json = r.ReadToEnd();
+                    List<classes> classes = JsonConvert.DeserializeObject<List<classes>>(json);
+
+                    foreach (var c in classes)
+                    {
+                        Class newClass = new Class
+                        { 
+                            ApiId = c.index,
+                            ApiUrl = c.url,
+                            GivenProficiencies = new List<ProficiencyGiven>(),
+                            HitDie = c.hit_die,
+                            Name = c.name,
+                            ProficiencyChoiceGroups = new List<ProficiencyChoiceGroup>(),
+                            SavingThrowProficiencies = new List<ProficiencySavingThrow>()
+                        };
+
+                        foreach (var givenProficiency in c.proficiencies)
+                        {
+                            newClass.GivenProficiencies.Add(new ProficiencyGiven
+                            {
+                                Proficiency = context.Proficencies
+                                .SingleOrDefault(p => p.ApiUrl == givenProficiency.url)
+                            });
+                        }
+
+                        foreach (var choiceGroup in c.proficiency_choices)
+                        {
+                            var group = new ProficiencyChoiceGroup();
+                            group.NumChoices = choiceGroup.choose;
+                            group.ProficiencyChoices = new List<ProficiencyChoice>();
+
+                            foreach (var choice in choiceGroup.from)
+                            {
+                                group.ProficiencyChoices.Add(new ProficiencyChoice
+                                {
+                                    Proficiency = context.Proficencies
+                                        .SingleOrDefault(p => p.ApiUrl == choice.url)
+                                });
+                            }
+
+                            newClass.ProficiencyChoiceGroups.Add(group);
+                        }
+
+                        foreach (var savingThrow in c.saving_throws)
+                        {
+                            newClass.SavingThrowProficiencies.Add(new ProficiencySavingThrow
+                            {
+                                Ability = context.Abilities
+                                    .SingleOrDefault(a => a.ApiUrl == savingThrow.url)
+                            });
+                        }
+
+                        Classes.Add(newClass);
+                    }
+
+                    context.Classes.AddRange(Classes);
+                    await context.SaveChangesAsync();
+                }
+            }
 
         }
 
