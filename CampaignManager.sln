@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampaignManager.UI", "Campa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampaignManager.Domain", "CampaignManager.Domain\CampaignManager.Domain.csproj", "{3F556F2D-5D0D-462E-8253-5EE4A4B6935F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampaignManager.Api", "CampaignManager.Api\CampaignManager.Api.csproj", "{1013FB3C-DCE4-44F9-89E2-8C2366CFE6B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampaignManager.Api", "CampaignManager.Api\CampaignManager.Api.csproj", "{1013FB3C-DCE4-44F9-89E2-8C2366CFE6B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
