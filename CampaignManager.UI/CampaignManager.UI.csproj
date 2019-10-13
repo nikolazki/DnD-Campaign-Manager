@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BulzarComponents\BulzarComponents.csproj" />
     <ProjectReference Include="..\CampaignManager.Domain\CampaignManager.Domain.csproj" />
   </ItemGroup>
 

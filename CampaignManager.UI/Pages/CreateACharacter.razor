@@ -1,4 +1,5 @@
 ﻿@page "/characters/create"
+@using BulzarComponents.Steps
 
 <br/>
 <div class="container is-fluid">
@@ -8,7 +9,20 @@
         </div>
         <div class="column">
             <div class="has-text-centered">
-                <p>This is where you will create a new character.</p>
+                <Steps>
+                    <StepItem IsCompleted="true" IsSuccess="true" MarkerIcon="fa fa-check" StepTitle="Step 1">
+                        This is the first step of the process.
+                    </StepItem>
+                    <StepItem IsActive="true" StepTitle="Step 2">
+                        This is the second step. You get here once you have completed the first step.
+                    </StepItem>
+                    <StepItem MarkerContent="3" StepTitle="Step 3">
+                        This is the third step. One more step before the end.
+                    </StepItem>
+                    <StepItem MarkerIcon="fa fa-flag" StepTitle="Step 4">
+                        Final step. You have completed all the previous steps and end the process.
+                    </StepItem>
+                </Steps>
             </div>
         </div>
     </div>

@@ -1,0 +1,55 @@
+﻿<div class="step-item @StepItemModifiers">
+    <div class="step-marker">
+        @if(MarkerIcon != null)
+        {
+            <span class="icon">
+                <i class="@MarkerIcon"></i>
+            </span>
+        }
+        else if (MarkerContent != null)
+        {
+            @MarkerContent
+        }
+    </div>
+    <div class="step-details">
+        <p class="step-title">@StepTitle</p>
+        <p>@ChildContent</p>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public bool IsCompleted { get; set; }
+
+    [Parameter]
+    public bool IsSuccess { get; set; }
+
+    [Parameter]
+    public bool IsActive { get; set; }
+
+    [Parameter]
+    public string MarkerIcon { get; set; }
+
+    [Parameter]
+    public string MarkerContent { get; set; }
+
+    [Parameter]
+    public string StepTitle { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    private string StepItemModifiers => GetStepItemModifiers();
+
+    private string GetStepItemModifiers()
+    {
+        string mods = "";
+
+        mods += (IsCompleted == true) ? "is-completed" : "";
+        mods += (IsSuccess == true) ? "is-success" : "";
+        mods += (IsActive == true) ? "is-active" : "";
+
+        return (string.IsNullOrEmpty(mods) ? null : mods);
+    }
+}
